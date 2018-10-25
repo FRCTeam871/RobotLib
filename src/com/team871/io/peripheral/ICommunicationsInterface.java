@@ -2,16 +2,11 @@ package com.team871.io.peripheral;
 
 public interface ICommunicationsInterface {
 
-    void send(int addr, IPacket packet);
+    void send(EndPoint addr, IPacket packet);
 
-    default void send(IPacket packet) {
-        send(0, packet);
-    }
+    void read(EndPoint addr, int read, IPacket emptyPacket);
 
-    default void read(IPacket emptyPacket) {
-        read(0, emptyPacket);
-    }
+    int numAvailable(EndPoint addr);
 
-    void read(int addr, IPacket emptyPacket);
-
+    boolean numAvailableSupported();
 }

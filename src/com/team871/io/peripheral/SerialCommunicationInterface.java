@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 
 public class SerialCommunicationInterface implements ICommunicationsInterface {
 
-    SerialPort port;
+    final SerialPort port;
 
     public SerialCommunicationInterface() {
         this(9600, Port.kMXP);
@@ -15,16 +15,24 @@ public class SerialCommunicationInterface implements ICommunicationsInterface {
         this.port = new SerialPort(baud, port);
     }
 
-    @Override
-    public void send(int addr, IPacket packet) {
+    public void send(EndPoint addr, IPacket packet) {
         byte[] data = packet.serialize();
         port.write(data, data.length);
         port.flush();
     }
 
+    public void read(EndPoint addr, int read, IPacket emptyPacket) {
+        emptyPacket.deserialize(port.read(read));
+    }
+
     @Override
-    public void read(int addr, IPacket emptyPacket) {
-        emptyPacket.deserialize(port.read(emptyPacket.getSize()));
+    public int numAvailable(EndPoint addr) {
+        return port.getBytesReceived();
+    }
+
+    @Override
+    public boolean numAvailableSupported() {
+        return true;
     }
 
 }
