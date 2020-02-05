@@ -6,7 +6,7 @@ package com.team871.io.sensor;
  * @author Team871
  *
  */
-public interface ILimitSwitch {
+public interface ILimitSwitch extends DigitalSensor {
 
     /**
      *

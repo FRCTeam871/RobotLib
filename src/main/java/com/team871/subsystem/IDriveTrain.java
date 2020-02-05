@@ -4,6 +4,8 @@ public interface IDriveTrain {
 
     void setHeadingHoldEnabled(boolean enabled);
 
+    boolean getHeadingHoldEnabled();
+
     void setHeadingHold(double heading);
 
     //TODO: look at how the PID from WPILib does this

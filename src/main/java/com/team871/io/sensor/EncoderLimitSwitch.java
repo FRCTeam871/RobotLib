@@ -47,4 +47,9 @@ public class EncoderLimitSwitch implements ILimitSwitch {
     public boolean isAtLimit() {
         return triggerAboveThreshHold ? input.get() > threshHold : input.get() < threshHold;
     }
+
+    @Override
+    public boolean get() {
+        return isAtLimit();
+    }
 }

@@ -1,6 +1,4 @@
-package frc.team871.control;
-
-import com.team871.hid.IAxis;
+package com.team871.hid;
 
 /**
  * An {@link IAxis} that supports applying a scale and transform to produce it's output

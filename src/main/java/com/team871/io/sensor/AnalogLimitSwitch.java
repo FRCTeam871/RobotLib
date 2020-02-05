@@ -47,4 +47,9 @@ public class AnalogLimitSwitch implements ILimitSwitch {
     public boolean isAtLimit() {
         return triggerAboveThreshold ? input.getVoltage() > threshold : input.getVoltage() < threshold;
     }
+
+    @Override
+    public boolean get() {
+        return isAtLimit();
+    }
 }

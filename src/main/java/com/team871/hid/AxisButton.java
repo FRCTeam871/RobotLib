@@ -4,8 +4,13 @@ public class AxisButton extends HIDButton {
 
     HIDAxis axis;
     float threshold;
+    boolean invert = false;
 
     public AxisButton(HIDAxis axis, float activateThreshold){
+        this(axis, activateThreshold, false);
+    }
+
+    public AxisButton(HIDAxis axis, float activateThreshold, boolean invert){
         super(new ButtonID() {
             @Override
             public String getName() {
@@ -17,12 +22,14 @@ public class AxisButton extends HIDButton {
                 return 0;
             }
         }, null);
+        this.axis = axis;
+        this.invert = invert;
         this.threshold = activateThreshold;
     }
 
     @Override
     public boolean getRaw(){
-        return axis.getValue() > threshold;
+        return invert ? axis.getValue() < threshold : axis.getValue() > threshold;
     }
 
 }

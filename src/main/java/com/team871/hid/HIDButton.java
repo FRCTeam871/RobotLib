@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 /**
  * @author not Jack Langhorn
  */
-public class HIDButton {
+public class HIDButton implements IButton{
 
     private boolean prevRaw;
     private boolean curEmulated; //TODO: better name
@@ -20,17 +20,10 @@ public class HIDButton {
         this.stickJoy = stickjoy;
     }
 
-    /**
-     * @return the raw value of the button
-     */
     public boolean getRaw() {
         return stickJoy.getRawButton(id.getId());
     }
 
-    /**
-     * @return the value of the button according to the {@link ButtonTypes ButtonType}.
-     * @see ButtonTypes
-     */
     //TODO: add debouncing over time
     public boolean getValue() {
         final boolean curVal = getRaw();

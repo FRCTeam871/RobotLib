@@ -1,10 +1,13 @@
 package com.team871.hid;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-public class HIDAxis {
+public class HIDAxis implements MappableAxis {
 
     private double deadband = 0.0;
+    private double scaling = 1;
+    private double translation = 0;
 
     private final AxisID id;
     private final Joystick stickJoy;
@@ -33,17 +36,16 @@ public class HIDAxis {
     }
     
     /**
-     * Reads the value of the specified axis after deadbanding. The deadbanded
+     * Reads the value of the specified axis after deadbanding and mapping. The deadbanded
      * values are linearly mapped to new values such that at the deadband, the
      * value is 0, but at full power the value is 1. This prevents jerky
      * readings when the raw value hovers around the deadband.
+     * If a mapping is provided the return value will be mapped accordingly.
      * <p>
      * If Trigger is read, the value returned will be the result from
      * subtracting the value of the left trigger from the right trigger. This
      * emulates both triggers affecting the same axis.
-     * 
-     * @param axis
-     *            The axis to read
+     *
      * @return Double containing the value of the axis.
      */
     public double getValue() {
@@ -59,21 +61,20 @@ public class HIDAxis {
          * y=(((x-d)^2)/((1-d)^2)).
          */
         final double raw = getRaw();
+        double outputValue;
 
         if (deadband == 0.0) {
-            return raw;
+            outputValue = raw;
+        }else if ((raw > -deadband) && (raw < deadband)) {
+            outputValue = 0.0;
+        }else if (raw <= 0) {
+            outputValue = (1 / (1 - deadband)) * raw + (deadband / (1 - deadband));
+        }else {
+            outputValue = (1 / (1 - deadband)) * raw - (deadband / (1 - deadband));
         }
 
-        if ((raw > -deadband) && (raw < deadband)) {
-            return 0.0;
-        }
-
-        if (raw <= 0) {
-            return (1 / (1 - deadband)) * raw + (deadband / (1 - deadband));
-        }
-        
-        return (1 / (1 - deadband)) * raw - (deadband / (1 - deadband));
-        
+        // (((output - iMin) / (iMax-iMin)) * (oMax - oMin)) + oMin
+        return (outputValue * scaling) + translation;
     }
 
     public AxisID getId() {
@@ -84,4 +85,14 @@ public class HIDAxis {
         return deadband;
     }
 
+    @Override
+    public void setInputRange(double min, double max) {
+        //no
+    }
+
+    @Override
+    public void setOutputRange(double min, double max) {
+        scaling = (max - min) / (1 - (-1));
+        translation = max - scaling;
+    }
 }

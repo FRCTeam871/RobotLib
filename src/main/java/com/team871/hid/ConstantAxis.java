@@ -1,25 +1,14 @@
 package com.team871.hid;
 
-public class ConstantHIDAxis implements IAxis {
+public class ConstantAxis implements MappableAxis {
 
     double val;
-    AxisID id;
+    private double scaling = 1;
+    private double translation = 0;
 
-    public ConstantHIDAxis(double val){
+    public ConstantAxis(double val){
 
         this.val = val;
-
-        id = new AxisID() {
-            @Override
-            public String getName() {
-                return "ConstantAxis=" + val;
-            }
-
-            @Override
-            public int getId() {
-                return 0;
-            }
-        };
 
     }
 
@@ -30,12 +19,17 @@ public class ConstantHIDAxis implements IAxis {
 
     @Override
     public double getValue() {
-        return val;
+        return (val * scaling) + translation;
     }
 
     @Override
-    public AxisID getId() {
-        return id;
+    public void setInputRange(double min, double max) {
+
     }
 
+    @Override
+    public void setOutputRange(double min, double max) {
+        scaling = (max - min) / (1 - (-1));
+        translation = max - scaling;
+    }
 }

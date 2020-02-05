@@ -20,4 +20,8 @@ public class CompositeLimitSwitch implements ILimitSwitch {
         return limits.stream().anyMatch(ILimitSwitch::isAtLimit);
     }
 
+    @Override
+    public boolean get() {
+        return limits.stream().anyMatch(ILimitSwitch::get);
+    }
 }

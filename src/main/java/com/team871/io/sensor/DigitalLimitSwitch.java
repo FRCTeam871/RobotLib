@@ -52,4 +52,9 @@ public class DigitalLimitSwitch implements ILimitSwitch {
     public DigitalInput getRawInput() {
         return input;
     }
+
+    @Override
+    public boolean get() {
+        return getRawInput().get();
+    }
 }
