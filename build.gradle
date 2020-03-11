@@ -30,8 +30,8 @@ publishing {
 }
 
 dependencies {
-    compile 'com.ctre.phoenix:wpiapi-java:5.17.6',
-            'com.ctre.phoenix:api-java:5.17.6',
+    compile 'com.ctre.phoenix:wpiapi-java:5.18.2',
+            'com.ctre.phoenix:api-java:5.18.2',
             'edu.wpi.first.cameraserver:cameraserver-java:2020.2.2',
             'edu.wpi.first.cscore:cscore-java:2020.2.2',
             'edu.wpi.first.hal:hal-java:2020.2.2',
