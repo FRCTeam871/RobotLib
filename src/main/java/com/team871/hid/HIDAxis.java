@@ -1,7 +1,7 @@
 package com.team871.hid;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
 public class HIDAxis implements MappableAxis {
 
@@ -94,5 +94,10 @@ public class HIDAxis implements MappableAxis {
     public void setOutputRange(double min, double max) {
         scaling = (max - min) / (1 - (-1));
         translation = max - scaling;
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+
     }
 }

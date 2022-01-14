@@ -1,5 +1,7 @@
 package com.team871.hid;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
+
 public class ConstantAxis implements MappableAxis {
 
     double val;
@@ -31,5 +33,10 @@ public class ConstantAxis implements MappableAxis {
     public void setOutputRange(double min, double max) {
         scaling = (max - min) / (1 - (-1));
         translation = max - scaling;
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+
     }
 }

@@ -46,7 +46,6 @@ public class Coordinate {
 
     /**
      * Gets distance between two waypoints
-     * @param other The waypoint to get the distance TO
      * @return a number
      */
     public double getDistance(Coordinate to) {

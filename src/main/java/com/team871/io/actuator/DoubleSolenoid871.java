@@ -8,6 +8,7 @@
 package com.team871.io.actuator;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 /**
  * Add your docs here.
@@ -16,7 +17,7 @@ public class DoubleSolenoid871 implements ISolenoid {
     private final DoubleSolenoid solenoid;
 
     public DoubleSolenoid871(int fwdChannel, int revChannel) {        
-        this.solenoid = new DoubleSolenoid(fwdChannel, revChannel);
+        this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, fwdChannel, revChannel);
     }
 
     @Override

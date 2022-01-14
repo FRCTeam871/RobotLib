@@ -2,14 +2,14 @@ package com.team871.io.actuator;
 
 
 import com.team871.io.sensor.ILimitSwitch;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 /**
  * This class is able to control the motor with the use of limit switches
  * @author Team871
  */
-public class LimitedSpeedController implements SpeedController {
-    private SpeedController motor;
+public class LimitedSpeedController implements MotorController {
+    private MotorController motor;
 
     private ILimitSwitch positive;
     private ILimitSwitch negative;
@@ -25,7 +25,7 @@ public class LimitedSpeedController implements SpeedController {
      * @param lower The lower limit switch
      * @param inverted Determines if the speed controller output should be negated
      */
-    public LimitedSpeedController(SpeedController motor, ILimitSwitch upper, ILimitSwitch lower, boolean inverted) {
+    public LimitedSpeedController(MotorController motor, ILimitSwitch upper, ILimitSwitch lower, boolean inverted) {
         this.motor = motor;
         this.positive = upper;
         this.negative = lower;
@@ -39,17 +39,12 @@ public class LimitedSpeedController implements SpeedController {
      * @param positive The upper limit switch
      * @param negative The lower limit switch
      */
-    public LimitedSpeedController(SpeedController motor, ILimitSwitch positive, ILimitSwitch negative) {
+    public LimitedSpeedController(MotorController motor, ILimitSwitch positive, ILimitSwitch negative) {
         this.motor = motor;
         this.positive = positive;
         this.negative = negative;
 
         motor.setInverted(false);
-    }
-
-    @Override
-    public void pidWrite(double output) {
-        set(output);
     }
 
     @Override

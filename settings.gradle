@@ -1,2 +1,6 @@
-rootProject.name = 'robotlib'
-
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+    }
+}
